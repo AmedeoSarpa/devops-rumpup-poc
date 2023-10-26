@@ -2,18 +2,18 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: quarkus-app-deployment
-  namespace: quarkus-app-namespace
+  namespace: {{ include "quarkus-app-helm-chart.name" . }}-namespace
 spec:
-  replicas: 2
+  replicas: {{ .Values.replicaCount }}
   selector:
     matchLabels:
       app: quarkus-app-deployment
-      namespace: quarkus-app-namespace
+      namespace: {{ include "quarkus-app-helm-chart.name" . }}-namespace
   template:
     metadata:
       labels:
         app: quarkus-app-deployment
-        namespace: quarkus-app-namespace
+        namespace: {{ include "quarkus-app-helm-chart.name" . }}-namespace
     spec:
       containers:
         - name: quarkus-app-deployment

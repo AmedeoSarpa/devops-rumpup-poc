@@ -2,7 +2,7 @@
 Repository to start to "play" with some DevOps technologies and tools like k8s, docker and helm.
 
 ## Hot to build in local
-0) You need to have docker engine and k8s installed on your local machine
+0) You need to have docker engine, helm and k8s installed on your local machine
 1) Build docker image with 
 ```docker 
 docker build -f src/main/docker/Dockerfile.jvm -t quarkus/quarkus-app-jvm .
@@ -13,10 +13,7 @@ docker build -f src/main/docker/Dockerfile.jvm -t quarkus/quarkus-app-jvm .
 kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/controller-v1.6.4/deploy/static/provider/cloud/deploy.yaml
 ```
 please make sure that the pods are running and everything is ok
-3) Go inside the *devops-files/kubefiles* folder and deploy the application in the cluster using the following commands
+3) Go inside the *devops-files/quarkus-app-helm-chart* folder and deploy the application in the cluster using the following helm command
 ```
-kubectl apply -f ./namespace.yml
-kubectl apply -f ./deployemnt.yml
-kubectl apply -f ./service.yml
-kubectl apply -f ./ingress.yml
+helm install <application-name> .
 ```
