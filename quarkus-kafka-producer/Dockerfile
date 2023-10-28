@@ -7,11 +7,11 @@
 #
 # Then, build the image with:
 #
-# docker build -f src/main/docker/Dockerfile.jvm -t quarkus/quarkus-app-jvm .
+# docker build -f quarkus-kafka-producer/Dockerfile -t quarkus/quarkus-kafka-producer-jvm .
 #
 # Then run the container using:
 #
-# docker run -i --rm -p 8080:8080 quarkus/quarkus-app-jvm
+# docker run -i --rm -p 8080:8080 quarkus/quarkus-kafka-producer-jvm
 #
 # If you want to include the debug port into your docker image
 # you will have to expose the debug port (default 5005 being the default) like this :  EXPOSE 8080 5005.
@@ -20,7 +20,7 @@
 #
 # Then run the container using :
 #
-# docker run -i --rm -p 8080:8080 quarkus/quarkus-app-jvm
+# docker run -i --rm -p 8080:8080 quarkus/quarkus-kafka-producer-jvm
 #
 # This image uses the `run-java.sh` script to run the application.
 # This scripts computes the command line to execute your Java application, and
@@ -83,10 +83,10 @@ ENV LANGUAGE='en_US:en'
 
 
 # We make four distinct layers so if there are application changes the library layers can be re-used
-COPY --chown=185 target/quarkus-app/lib/ /deployments/lib/
-COPY --chown=185 target/quarkus-app/*.jar /deployments/
-COPY --chown=185 target/quarkus-app/app/ /deployments/app/
-COPY --chown=185 target/quarkus-app/quarkus/ /deployments/quarkus/
+COPY --chown=185 quarkus-kafka-producer/target/quarkus-app/lib/ /deployments/lib/
+COPY --chown=185 quarkus-kafka-producer/target/quarkus-app/*.jar /deployments/
+COPY --chown=185 quarkus-kafka-producer/target/quarkus-app/app/ /deployments/app/
+COPY --chown=185 quarkus-kafka-producer/target/quarkus-app/quarkus/ /deployments/quarkus/
 
 EXPOSE 8080
 USER 185

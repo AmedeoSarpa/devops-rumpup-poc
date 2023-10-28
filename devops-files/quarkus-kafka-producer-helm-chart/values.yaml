@@ -1,4 +1,4 @@
-# Default values for quarkus-app-helm-chart.
+# Default values for quarkus-kafka-producer-helm-chart.
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
 
@@ -14,3 +14,8 @@ ingress:
   annotations:
      ingress:
        class: nginx
+
+deployment:
+  containers:
+    image: amedeosarpa/quarkus-kafka-producer
+    name: quarkus-kafka-producer-name

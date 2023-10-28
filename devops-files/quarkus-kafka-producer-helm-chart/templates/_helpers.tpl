@@ -1,7 +1,7 @@
 {{/*
 Expand the name of the chart.
 */}}
-{{- define "quarkus-app-helm-chart.name" -}}
+{{- define "quarkus-kafka-producer-helm-chart.name" -}}
 {{- default .Chart.Name }}
 {{- end }}
 

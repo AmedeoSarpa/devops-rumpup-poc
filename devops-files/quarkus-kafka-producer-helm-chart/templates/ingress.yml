@@ -1,15 +1,15 @@
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: quarkus-app-ingress
-  namespace: {{ include "quarkus-app-helm-chart.name" . }}-namespace
+  name: {{ include "quarkus-kafka-producer-helm-chart.name" . }}-ingress
+  namespace: {{ include "quarkus-kafka-producer-helm-chart.name" . }}-namespace
   annotations:
     kubernetes.io/ingress.class: {{ .Values.ingress.annotations.ingress.class }}
 spec:
   defaultBackend:
     resource:
       kind: Service
-      name: quarkus-app-service
+      name: {{ include "quarkus-kafka-producer-helm-chart.name" . }}-service
   rules:
     - host: hello.127.0.0.1.nip.io
       http:
@@ -18,6 +18,6 @@ spec:
             pathType: Prefix
             backend:
               service:
-                name: quarkus-app-service
+                name: {{ include "quarkus-kafka-producer-helm-chart.name" . }}-service
                 port:
                   number: 8080

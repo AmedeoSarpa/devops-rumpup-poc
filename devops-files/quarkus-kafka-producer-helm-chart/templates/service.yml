@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "quarkus-kafka-producer-helm-chart.name" . }}-service
+  namespace: {{ include "quarkus-kafka-producer-helm-chart.name" . }}-namespace
+spec:
+  selector:
+    app: {{ include "quarkus-kafka-producer-helm-chart.name" . }}-deployment
+    namespace: {{ include "quarkus-kafka-producer-helm-chart.name" . }}-namespace
+  ports:
+    - protocol: TCP
+      port: {{ .Values.service.port }}
+      targetPort: {{ .Values.service.targetPort }}
+  type: {{ .Values.service.type }}

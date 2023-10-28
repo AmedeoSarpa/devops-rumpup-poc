@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "quarkus-kafka-producer-helm-chart.name" . }}-deployment
+  namespace: {{ include "quarkus-kafka-producer-helm-chart.name" . }}-namespace
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      app: {{ include "quarkus-kafka-producer-helm-chart.name" . }}-deployment
+      namespace: {{ include "quarkus-kafka-producer-helm-chart.name" . }}-namespace
+  template:
+    metadata:
+      labels:
+        app: {{ include "quarkus-kafka-producer-helm-chart.name" . }}-deployment
+        namespace: {{ include "quarkus-kafka-producer-helm-chart.name" . }}-namespace
+    spec:
+      containers:
+        - name: {{ .Values.deployment.containers.name }}
+          image: {{ .Values.deployment.containers.image }}
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 8080
