@@ -13,8 +13,8 @@ docker build -f quarkus-kafka-producer/Dockerfile.jvm -t <image-name> .
 kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/controller-v1.6.4/deploy/static/provider/cloud/deploy.yaml
 ```
 please make sure that the pods are running and everything is ok
-4) Go inside the *devops-files/quarkus-kafka-producer-helm-chart/values.yaml* and set the <image-name> under the path deployment>containers>name
-5) Go inside the *devops-files/quarkus-kafka-producer-helm-chart* folder and deploy the application in the cluster using the following helm command
+4) Go inside the *devops-files/devops-rumpup-poc-helm-charts/charts/quarkus-kafka-producer-helm-chart/values.yaml* and set the <image-name> under the path deployment>containers>name
+5) Go inside the *devops-files/devops-rumpup-poc-helm-charts* folder and deploy the application in the cluster using the following helm command
 ```
 helm install <application-name> .
 ```
