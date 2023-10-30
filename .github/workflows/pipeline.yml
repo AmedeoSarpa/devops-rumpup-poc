@@ -28,7 +28,7 @@ jobs:
     needs: detect-changes
 
     # run only if some file in 'quarkus-kafka-producer' folder was changed
-    if: ${{ needs.changes.outputs.quarkus-kafka-producer == 'true' }}
+    if: ${{ needs.detect-changes.outputs.quarkus-kafka-producer == 'true' }}
   
     runs-on: ubuntu-latest
 
