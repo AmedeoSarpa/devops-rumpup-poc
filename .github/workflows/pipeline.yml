@@ -3,11 +3,32 @@ name: devops-rumpup-poc's pipeline by amedeosarpa
 on:
   push:
     branches: [ "main" ]
-  pull_request:
-    branches: [ "main" ]
+    paths-ignore:
+      - 'devops-fils'
 
 jobs:
+
+  detect-changes:
+    runs-on: ubuntu-latest
+    outputs:
+      quarkus-kafka-producer: ${{ steps.filter.outputs.quarkus-kafka-producer }}
+    steps:
+    - uses: actions/checkout@v3
+
+    - uses: dorny/paths-filter@v2
+      id: filter
+      with:
+        filters: |
+          quarkus-kafka-producer:
+            - 'quarkus-kafka-producer/**'
+
+
   quarkus-kafka-producer:
+
+    needs: detect-changes
+
+    # run only if some file in 'quarkus-kafka-producer' folder was changed
+    if: ${{ needs.changes.outputs.quarkus-kafka-producer == 'true' }}
   
     runs-on: ubuntu-latest
 
