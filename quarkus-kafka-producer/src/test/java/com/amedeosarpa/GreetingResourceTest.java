@@ -11,11 +11,16 @@ public class GreetingResourceTest {
 
     @Test
     public void testHelloEndpoint() {
+
+        String inputMessage = "Hello from kafka";
+
         given()
-          .when().get("/hello")
+          .when()
+                .body(inputMessage)
+                .get("/hello")
           .then()
              .statusCode(200)
-             .body(is("Hello!"));
+             .body(is(inputMessage));
     }
 
 }

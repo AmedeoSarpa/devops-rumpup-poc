@@ -21,3 +21,9 @@ spec:
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 8080
+          env:
+            - name: kafka.properties
+              valueFrom:
+                configMapKeyRef:
+                  name: {{ include "quarkus-kafka-producer-helm-chart.name" . }}-config-map
+                  key: kafka.properties
