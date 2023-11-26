@@ -1,5 +1,5 @@
 ####
-# This Dockerfile.jvm is used in order to build a container that runs the Quarkus application in JVM mode
+# This Dockerfile is used in order to build a container that runs the Quarkus application in JVM mode
 #
 # Before building the container image run:
 #
@@ -7,7 +7,7 @@
 #
 # Then, build the image with:
 #
-# docker build -f quarkus-kafka-producer/Dockerfile.jvm -t <image name> .
+# docker build -f quarkus-kafka-producer/Dockerfile -t <image name> .
 #
 # Then run the container using:
 #

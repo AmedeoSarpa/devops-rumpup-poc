@@ -53,5 +53,5 @@ jobs:
         tags: latest
         username: ${{ secrets.DOCKER_USERNAME }}
         password: ${{ secrets.DOCKER_PASSWORD }}
-        dockerfile: quarkus-kafka-producer/Dockerfile.jwm
+        dockerfile: quarkus-kafka-producer/Dockerfile
 

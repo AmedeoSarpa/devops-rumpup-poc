@@ -5,7 +5,7 @@ metadata:
   namespace: {{ include "quarkus-kafka-producer-helm-chart.name" . }}-namespace
 data:
   kafka.properties: |
-    KAFKA_BOOTSTRAP_SERVERS = kafka-0.kafka-cluster.default.svc.cluster.local:9092
+    KAFKA_BOOTSTRAP_SERVERS = crs-kafka-0.kafka-cluster.default.svc.cluster.local:9092
     KAFKA_CONNECTORS = smallrye-kafka
     KAFKA_INPUT_TOPIC = amedeosarpa.kafka-topic
     KAFKA_OUTPUT_TOPIC = amedeosarpa.kafka-topic
