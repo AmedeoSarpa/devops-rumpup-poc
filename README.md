@@ -14,3 +14,16 @@ docker build -f quarkus-kafka-producer/Dockerfile.jvm -t <image-name> .
 helm install <application-name> .
 ```
 Note that this command will install also a nginx-ingress controller, please make sure that all pods are up and running!
+
+## MongoDb
+### Access MongoClient
+
+1) Open a terminal, and execute the following command in order to open a bash terminal inside the mongo client container
+```
+kubectl exec deployment/mongo-client -it -- //bin//bash
+```
+2) Then login to mongo with the following command
+```
+mongosh --host mongo-nodeport-svc --port 27017 -u <username> -p <password>
+```
+Note that username and password are defined in the MongoDatabase's secret file under the path *devops-files/devops-rumpup-poc-helm-charts/charts/middleware/templates/mongo-db.yaml*
