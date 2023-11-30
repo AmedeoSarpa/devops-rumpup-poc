@@ -12,12 +12,12 @@ import org.eclipse.microprofile.reactive.messaging.Incoming;
 
 @Slf4j
 @ApplicationScoped
-public class KafkaConsumer{
+public class KafkaConsumer {
 
     @Inject
     MongoImplementation mongoImplementation;
 
-    @Incoming("data-input")
+    @Incoming("data-output")
     public void consume(ConsumerRecord<String, String> record){
         log.info("Received kafka message on topic {}", record.topic());
         log.info("kafka message key {}", record.key());
@@ -29,6 +29,4 @@ public class KafkaConsumer{
             log.error("EXCEPTION: "+mongoException.getMessage());
         }
     }
-
-    
 }

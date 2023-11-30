@@ -1,0 +1,49 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "quarkus-kafka-consumer-helm-chart.name" . }}-deployment
+  namespace: {{ include "quarkus-kafka-consumer-helm-chart.name" . }}-namespace
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      app: {{ include "quarkus-kafka-consumer-helm-chart.name" . }}-deployment
+      namespace: {{ include "quarkus-kafka-consumer-helm-chart.name" . }}-namespace
+  template:
+    metadata:
+      labels:
+        app: {{ include "quarkus-kafka-consumer-helm-chart.name" . }}-deployment
+        namespace: {{ include "quarkus-kafka-consumer-helm-chart.name" . }}-namespace
+    spec:
+      containers:
+        - name: {{ .Values.deployment.containers.name }}
+          image: {{ .Values.deployment.containers.image }}
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 8080
+          env:
+            - name: KAFKA_BOOTSTRAP_SERVERS
+              valueFrom:
+                configMapKeyRef:
+                  name: {{ include "quarkus-kafka-consumer-helm-chart.name" . }}-config-map
+                  key: KAFKA_BOOTSTRAP_SERVERS
+            - name: KAFKA_CONNECTOR
+              valueFrom:
+                configMapKeyRef:
+                  name: {{ include "quarkus-kafka-consumer-helm-chart.name" . }}-config-map
+                  key: KAFKA_CONNECTOR
+            - name: KAFKA_INPUT_TOPIC
+              valueFrom:
+                configMapKeyRef:
+                  name: {{ include "quarkus-kafka-consumer-helm-chart.name" . }}-config-map
+                  key: KAFKA_INPUT_TOPIC
+            - name: KAFKA_KEY_DESERIALIZER
+              valueFrom:
+                configMapKeyRef:
+                  name: {{ include "quarkus-kafka-consumer-helm-chart.name" . }}-config-map
+                  key: KAFKA_KEY_DESERIALIZER
+            - name: MONGO_CONNECTION_STRING
+              valueFrom:
+                secretKeyRef:
+                  name: {{ include "quarkus-kafka-consumer-helm-chart.name" . }}-secret
+                  key: mongo.connection.string

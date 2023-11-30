@@ -1,0 +1,10 @@
+# Default values for quarkus-kafka-consumer-helm-chart.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+replicaCount: 1
+
+deployment:
+  containers:
+    image: amedeosarpa/quarkus-kafka-consumer
+    name: quarkus-kafka-consumer-name

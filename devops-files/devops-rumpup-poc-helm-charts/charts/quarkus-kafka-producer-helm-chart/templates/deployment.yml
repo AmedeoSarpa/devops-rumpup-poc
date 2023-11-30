@@ -22,13 +22,27 @@ spec:
           ports:
             - containerPort: 8080
           env:
-            - name: kafka.properties
+            - name: KAFKA_BOOTSTRAP_SERVERS
               valueFrom:
                 configMapKeyRef:
                   name: {{ include "quarkus-kafka-producer-helm-chart.name" . }}-config-map
-                  key: kafka.properties
-            - name: MONGO_CONNECTION_STRING
+                  namespace: {{ include "quarkus-kafka-producer-helm-chart.name" . }}-namespace
+                  key: KAFKA_BOOTSTRAP_SERVERS
+            - name: KAFKA_CONNECTOR
               valueFrom:
-                secretKeyRef:
-                  name: {{ include "quarkus-kafka-producer-helm-chart.name" . }}-secret
-                  key: mongo.connection.string
+                configMapKeyRef:
+                  name: {{ include "quarkus-kafka-producer-helm-chart.name" . }}-config-map
+                  namespace: {{ include "quarkus-kafka-producer-helm-chart.name" . }}-namespace
+                  key: KAFKA_CONNECTOR
+            - name: KAFKA_OUTPUT_TOPIC
+              valueFrom:
+                configMapKeyRef:
+                  name: {{ include "quarkus-kafka-producer-helm-chart.name" . }}-config-map
+                  namespace: {{ include "quarkus-kafka-producer-helm-chart.name" . }}-namespace
+                  key: KAFKA_OUTPUT_TOPIC
+            - name: KAFKA_KEY_SERIALIZER
+              valueFrom:
+                configMapKeyRef:
+                  name: {{ include "quarkus-kafka-producer-helm-chart.name" . }}-config-map
+                  namespace: {{ include "quarkus-kafka-producer-helm-chart.name" . }}-namespace
+                  key: KAFKA_KEY_SERIALIZER

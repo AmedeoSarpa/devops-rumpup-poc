@@ -1,6 +1,6 @@
 apiVersion: v2
-name: devops-rumpup-poc-helm-chart
-description: An umbrella Helm chart for the devops-rumpup-poc files
+name: quarkus-kafka-consumer-helm-chart
+description: A Helm chart for Kubernetes files to deploy quarkus-kafka-consumer
 
 type: application
 
@@ -14,14 +14,3 @@ version: 0.1.0
 # follow Semantic Versioning. They should reflect the version the application is using.
 # It is recommended to use it with quotes.
 appVersion: "1.0"
-
-dependencies:
-  - name: quarkus-kafka-producer-helm-chart
-    version: 0.1.0
-    repository: "file://./charts/quarkus-kafka-producer-helm-chart"
-  - name: quarkus-kafka-consumer-helm-chart
-    version: 0.1.0
-    repository: "file://./charts/quarkus-kafka-consumer-helm-chart"
-  - name: middleware
-    version: 0.1.0
-    repository: "file://./charts/middleware"
