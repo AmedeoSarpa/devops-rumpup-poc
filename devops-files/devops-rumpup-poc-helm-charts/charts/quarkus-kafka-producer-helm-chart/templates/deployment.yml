@@ -26,23 +26,19 @@ spec:
               valueFrom:
                 configMapKeyRef:
                   name: {{ include "quarkus-kafka-producer-helm-chart.name" . }}-config-map
-                  namespace: {{ include "quarkus-kafka-producer-helm-chart.name" . }}-namespace
                   key: KAFKA_BOOTSTRAP_SERVERS
             - name: KAFKA_CONNECTOR
               valueFrom:
                 configMapKeyRef:
                   name: {{ include "quarkus-kafka-producer-helm-chart.name" . }}-config-map
-                  namespace: {{ include "quarkus-kafka-producer-helm-chart.name" . }}-namespace
                   key: KAFKA_CONNECTOR
             - name: KAFKA_OUTPUT_TOPIC
               valueFrom:
                 configMapKeyRef:
                   name: {{ include "quarkus-kafka-producer-helm-chart.name" . }}-config-map
-                  namespace: {{ include "quarkus-kafka-producer-helm-chart.name" . }}-namespace
                   key: KAFKA_OUTPUT_TOPIC
             - name: KAFKA_KEY_SERIALIZER
               valueFrom:
                 configMapKeyRef:
                   name: {{ include "quarkus-kafka-producer-helm-chart.name" . }}-config-map
-                  namespace: {{ include "quarkus-kafka-producer-helm-chart.name" . }}-namespace
                   key: KAFKA_KEY_SERIALIZER

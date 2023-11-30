@@ -6,7 +6,7 @@ on:
 
 jobs:
 
-  detect-changes:
+  detect-changes-quarkus-kafka-producer:
     runs-on: ubuntu-latest
     outputs:
       quarkus-kafka-producer: ${{ steps.filter.outputs.quarkus-kafka-producer }}
@@ -21,10 +21,25 @@ jobs:
           quarkus-kafka-producer:
             - 'quarkus-kafka-producer/**'
 
+  detect-changes-quarkus-kafka-consumer:
+    runs-on: ubuntu-latest
+    outputs:
+      quarkus-kafka-producer: ${{ steps.filter.outputs.quarkus-kafka-consumer }}
+    steps:
+      - name: Checkout the code
+        uses: actions/checkout@v3
+
+      - uses: dorny/paths-filter@v2
+        id: filter
+        with:
+          filters: |
+            quarkus-kafka-consumer:
+              - 'quarkus-kafka-consumer/**'
+
 
   quarkus-kafka-producer:
 
-    needs: detect-changes
+    needs: detect-changes-quarkus-kafka-producer
 
     # run only if some file in 'quarkus-kafka-producer' folder was changed
     if: ${{ needs.detect-changes.outputs.quarkus-kafka-producer == 'true' }}
@@ -55,3 +70,35 @@ jobs:
         password: ${{ secrets.DOCKER_PASSWORD }}
         dockerfile: quarkus-kafka-producer/Dockerfile
 
+  quarkus-kafka-consumer:
+
+    needs: detect-changes-quarkus-kafka-consumer
+
+    # run only if some file in 'quarkus-kafka-consumer' folder was changed
+    if: ${{ needs.detect-changes.outputs.quarkus-kafka-consumer == 'true' }}
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout the code
+        uses: actions/checkout@v3
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v3
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+          cache: maven
+
+      - name: Build and Test with Maven
+        run: mvn clean test -f quarkus-kafka-consumer/pom.xml
+
+      - name: Build and Push docker image
+        uses: mr-smithers-excellent/docker-build-push@v6
+        with:
+          image: amedeosarpa/quarkus-kafka-consumer
+          registry: docker.io
+          tags: latest
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+          dockerfile: quarkus-kafka-producer/Dockerfile

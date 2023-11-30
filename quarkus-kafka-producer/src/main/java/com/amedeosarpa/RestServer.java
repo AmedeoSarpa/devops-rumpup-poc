@@ -21,6 +21,6 @@ public class RestServer {
     public String hello(String message) {
         log.info("Received request to send message {}", message);
         kafkaProducer.produce(message);
-        return message;
+        return "It worked!";
     }
 }
