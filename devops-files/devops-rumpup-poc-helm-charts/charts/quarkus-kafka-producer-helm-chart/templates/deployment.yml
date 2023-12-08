@@ -2,18 +2,18 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: {{ include "quarkus-kafka-producer-helm-chart.name" . }}-deployment
-  namespace: {{ include "quarkus-kafka-producer-helm-chart.name" . }}-namespace
+  namespace: {{ .Values.global.namespace }}
 spec:
   replicas: {{ .Values.replicaCount }}
   selector:
     matchLabels:
       app: {{ include "quarkus-kafka-producer-helm-chart.name" . }}-deployment
-      namespace: {{ include "quarkus-kafka-producer-helm-chart.name" . }}-namespace
+      namespace: {{ .Values.global.namespace }}
   template:
     metadata:
       labels:
         app: {{ include "quarkus-kafka-producer-helm-chart.name" . }}-deployment
-        namespace: {{ include "quarkus-kafka-producer-helm-chart.name" . }}-namespace
+        namespace: {{ .Values.global.namespace }}
     spec:
       containers:
         - name: {{ .Values.deployment.containers.name }}
@@ -25,12 +25,12 @@ spec:
             - name: KAFKA_BOOTSTRAP_SERVERS
               valueFrom:
                 configMapKeyRef:
-                  name: {{ include "quarkus-kafka-producer-helm-chart.name" . }}-config-map
+                  name: {{ .Values.global.chart.name }}-config-map
                   key: KAFKA_BOOTSTRAP_SERVERS
             - name: KAFKA_CONNECTOR
               valueFrom:
                 configMapKeyRef:
-                  name: {{ include "quarkus-kafka-producer-helm-chart.name" . }}-config-map
+                  name: {{ .Values.global.chart.name }}-config-map
                   key: KAFKA_CONNECTOR
             - name: KAFKA_OUTPUT_TOPIC
               valueFrom:
@@ -42,3 +42,13 @@ spec:
                 configMapKeyRef:
                   name: {{ include "quarkus-kafka-producer-helm-chart.name" . }}-config-map
                   key: KAFKA_KEY_SERIALIZER
+            - name: QUARKUS_LOG_CONSOLE_FORMAT
+              valueFrom:
+                configMapKeyRef:
+                  name: {{ .Values.global.chart.name }}-config-map
+                  key: QUARKUS_LOG_CONSOLE_FORMAT
+            - name: QUARKUS_OTEL_EXPORTER_TRACER_ENDPOINT
+              valueFrom:
+                configMapKeyRef:
+                  name: {{ .Values.global.chart.name }}-config-map
+                  key: QUARKUS_OTEL_EXPORTER_TRACER_ENDPOINT

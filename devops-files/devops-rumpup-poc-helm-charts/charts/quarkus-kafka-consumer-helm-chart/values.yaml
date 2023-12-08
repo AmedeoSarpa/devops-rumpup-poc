@@ -6,5 +6,5 @@ replicaCount: 1
 
 deployment:
   containers:
-    image: amedeosarpa/quarkus-kafka-consumer
+    image: consumer-image
     name: quarkus-kafka-consumer-name

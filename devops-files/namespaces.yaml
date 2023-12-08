@@ -1,0 +1,21 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  labels:
+    app.kubernetes.io/instance: ingress-nginx
+    app.kubernetes.io/name: ingress-nginx
+  name: ingress-nginx
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: devops-rumpup-namespace
+  labels:
+    name: devops-rumpup-namespace
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: observability
+  labels:
+    name: observability

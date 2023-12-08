@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ include "devops-rumpup-poc-helm-chart.name" . }}-config-map
+  namespace: {{ .Values.global.namespace }}
+data:
+  QUARKUS_OTEL_EXPORTER_TRACER_ENDPOINT: http://simplest-collector.default.svc.cluster.local:4317/api/traces
+  QUARKUS_LOG_CONSOLE_FORMAT: "%d{HH:mm:ss} %-5p [%X{traceId}] [%c{2.}] %s%e%n"
+  KAFKA_BOOTSTRAP_SERVERS: crs-kafka-0.kafka-cluster.default.svc.cluster.local:9092
+  KAFKA_CONNECTOR: smallrye-kafka

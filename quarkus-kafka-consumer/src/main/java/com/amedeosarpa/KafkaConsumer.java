@@ -22,6 +22,7 @@ public class KafkaConsumer {
         log.info("Received kafka message on topic {}", record.topic());
         log.info("kafka message key {}", record.key());
         log.info("kafka message value {}", record.value());
+        log.info("Kafka message headers {}", record.headers());
         try {
             mongoImplementation.storeMessage(record.value());
         }

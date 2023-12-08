@@ -1,0 +1,4 @@
+global:
+  namespace: devops-rumpup-namespace
+  chart:
+    name: devops-rumpup-poc-helm-chart

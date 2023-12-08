@@ -17,5 +17,5 @@ ingress:
 
 deployment:
   containers:
-    image: amedeosarpa/quarkus-kafka-producer
+    image: producer-image
     name: quarkus-kafka-producer-name

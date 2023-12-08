@@ -2,7 +2,7 @@ apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: {{ include "quarkus-kafka-producer-helm-chart.name" . }}-ingress
-  namespace: {{ include "quarkus-kafka-producer-helm-chart.name" . }}-namespace
+  namespace: {{ .Values.global.namespace }}
   annotations:
     kubernetes.io/ingress.class: {{ .Values.ingress.annotations.ingress.class }}
 spec:
