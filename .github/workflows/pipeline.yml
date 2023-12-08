@@ -6,10 +6,11 @@ on:
 
 jobs:
 
-  detect-changes-quarkus-kafka-producer:
+  detect-changes-on-microservices:
     runs-on: ubuntu-latest
     outputs:
       quarkus-kafka-producer: ${{ steps.filter.outputs.quarkus-kafka-producer }}
+      quarkus-kafka-consumer: ${{ steps.filter.outputs.quarkus-kafka-consumer }}
     steps:
     - name: Checkout the code
       uses: actions/checkout@v3
@@ -20,29 +21,16 @@ jobs:
         filters: |
           quarkus-kafka-producer:
             - 'quarkus-kafka-producer/**'
-
-  detect-changes-quarkus-kafka-consumer:
-    runs-on: ubuntu-latest
-    outputs:
-      quarkus-kafka-producer: ${{ steps.filter.outputs.quarkus-kafka-consumer }}
-    steps:
-      - name: Checkout the code
-        uses: actions/checkout@v3
-
-      - uses: dorny/paths-filter@v2
-        id: filter
-        with:
-          filters: |
-            quarkus-kafka-consumer:
-              - 'quarkus-kafka-consumer/**'
+          quarkus-kafka-consumer:
+            - 'quarkus-kafka-consumer/**'
 
 
   quarkus-kafka-producer:
 
-    needs: detect-changes-quarkus-kafka-producer
+    needs: detect-changes-on-microservices
 
     # run only if some file in 'quarkus-kafka-producer' folder was changed
-    if: ${{ needs.detect-changes.outputs.quarkus-kafka-producer == 'true' }}
+    if: ${{ needs.detect-changes-on-microservices.outputs.quarkus-kafka-producer == 'true' }}
   
     runs-on: ubuntu-latest
 
@@ -72,10 +60,10 @@ jobs:
 
   quarkus-kafka-consumer:
 
-    needs: detect-changes-quarkus-kafka-consumer
+    needs: detect-changes-on-microservices
 
     # run only if some file in 'quarkus-kafka-consumer' folder was changed
-    if: ${{ needs.detect-changes.outputs.quarkus-kafka-consumer == 'true' }}
+    if: ${{ needs.detect-changes-on-microservices.quarkus-kafka-consumer == 'true' }}
 
     runs-on: ubuntu-latest
 
