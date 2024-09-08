@@ -5,4 +5,4 @@ metadata:
   namespace: {{ .Values.global.namespace }}
 data:
   KAFKA_INPUT_TOPIC: amedeosarpa.kafka-topic
-  KAFKA_KEY_DESERIALIZER: org.apache.kafka.common.serialization.StringDeserializer
+  KAFKA_KEY_DESERIALIZER: com.amedeosarpa.dto.MeasurementRecordDeserializer

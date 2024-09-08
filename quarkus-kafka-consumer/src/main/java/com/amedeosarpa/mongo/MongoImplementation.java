@@ -1,5 +1,6 @@
 package com.amedeosarpa.mongo;
 
+import com.amedeosarpa.dto.MeasurementRecord;
 import com.mongodb.client.MongoClient;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.result.InsertOneResult;
@@ -25,9 +26,11 @@ public class MongoImplementation {
         this.clock = Clock.systemUTC();
     }
 
-    public void storeMessage(String message) throws MongoException {
+    public void storeMessage(MeasurementRecord message) throws MongoException {
         Document document = new Document()
-                .append("message", message)
+                .append("value", message.value())
+                .append("location", message.location())
+                .append("operatorId", message.operatorId())
                 .append("time", this.clock.instant());
         InsertOneResult result = this.getMessagesCollection().insertOne(document);
         if (!result.wasAcknowledged()){

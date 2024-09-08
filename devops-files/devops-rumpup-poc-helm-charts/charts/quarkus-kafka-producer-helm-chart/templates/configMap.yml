@@ -5,4 +5,4 @@ metadata:
   namespace: {{ .Values.global.namespace }}
 data:
   KAFKA_OUTPUT_TOPIC: amedeosarpa.kafka-topic
-  KAFKA_KEY_SERIALIZER: org.apache.kafka.common.serialization.StringSerializer
+  KAFKA_KEY_SERIALIZER: io.quarkus.kafka.client.serialization.ObjectMapperSerializer

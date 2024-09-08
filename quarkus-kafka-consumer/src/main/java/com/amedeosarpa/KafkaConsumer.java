@@ -1,5 +1,6 @@
 package com.amedeosarpa;
 
+import com.amedeosarpa.dto.MeasurementRecord;
 import com.amedeosarpa.mongo.MongoException;
 import com.amedeosarpa.mongo.MongoImplementation;
 import com.mongodb.MongoClientException;
@@ -18,7 +19,7 @@ public class KafkaConsumer {
     MongoImplementation mongoImplementation;
 
     @Incoming("data-output")
-    public void consume(ConsumerRecord<String, String> record){
+    public void consume(ConsumerRecord<String, MeasurementRecord> record){
         log.info("Received kafka message on topic {}", record.topic());
         log.info("kafka message key {}", record.key());
         log.info("kafka message value {}", record.value());

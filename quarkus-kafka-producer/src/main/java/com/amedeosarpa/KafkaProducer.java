@@ -1,5 +1,6 @@
 package com.amedeosarpa;
 
+import com.amedeosarpa.dto.MeasurementRecord;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import lombok.extern.slf4j.Slf4j;
@@ -13,9 +14,9 @@ public class KafkaProducer {
 
     @Inject
     @Channel("data-output")
-    Emitter<String> emitter;
+    Emitter<MeasurementRecord> emitter;
 
-    public void produce(String message){
-        emitter.send(message);
+    public void produce(MeasurementRecord measurementRecord){
+        emitter.send(measurementRecord);
     }
 }

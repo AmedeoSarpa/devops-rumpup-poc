@@ -1,10 +1,9 @@
 package com.amedeosarpa;
 
+import com.amedeosarpa.dto.MeasurementRecord;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
-import jakarta.ws.rs.GET;
-import jakarta.ws.rs.Path;
-import jakarta.ws.rs.Produces;
+import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 import lombok.extern.slf4j.Slf4j;
 
@@ -16,11 +15,11 @@ public class RestServer {
     @Inject
     KafkaProducer kafkaProducer;
 
-    @GET
-    @Produces(MediaType.TEXT_PLAIN)
-    public String hello(String message) {
-        log.info("Received request to send message {}", message);
-        kafkaProducer.produce(message);
+    @POST
+    @Consumes(MediaType.APPLICATION_JSON)
+    public String hello(MeasurementRecord measurementRecord) {
+        log.info("Received request to send measurement {}", measurementRecord);
+        kafkaProducer.produce(measurementRecord);
         return "It worked!";
     }
 }
